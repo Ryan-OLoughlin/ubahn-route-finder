@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.RouteController">
+   <!-- Top area for route controls -->
+   <top>
+      <VBox spacing="5">
+         <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+         </padding>
+         <Label text="Select Your Route"/>
+
+         <HBox spacing="10">
+            <Label text="Start Station:"/>
+            <ComboBox fx:id="startStationComboBox" prefWidth="150"/>
+         </HBox>
+
+         <HBox spacing="10">
+            <Label text="Destination Station:"/>
+            <ComboBox fx:id="destinationStationComboBox" prefWidth="150"/>
+         </HBox>
+
+         <HBox spacing="10">
+            <Button text="Find Route" onAction="#onFindRoute"/>
+            <Button text="Clear" onAction="#onClear"/>
+         </HBox>
+      </VBox>
+   </top>
+
+   <!-- Center area for map display -->
+   <center>
+      <AnchorPane>
+         <Label text="Map will be displayed here" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"/>
+      </AnchorPane>
+   </center>
+
+   <!-- Optional: Bottom or side areas for additional information or controls -->
+   <bottom>
+      <Label text="Status: Ready">
+         <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+         </padding>
+      </Label>
+   </bottom>
+</BorderPane>
