@@ -10,6 +10,7 @@ public class GraphNodeAL<T> {
     public List<GraphLinkAL> adjList = new ArrayList<>(); // List for connected nodes
     private double latitude;
     private double longitude;
+    public double x, y;
 
         public GraphNodeAL(T data,String name){
                 this.data = data;

@@ -5,6 +5,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 
+<?import java.awt.Label?>
+<?import java.awt.TextArea?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.RouteController">
    <!-- Top area for route controls -->
    <top>
@@ -25,7 +27,10 @@
          </HBox>
 
          <HBox spacing="10">
-            <Button text="Find Route" onAction="#onFindRoute"/>
+            <Button text="Find Route (BFS)" onAction="#onFindRoute"/>
+            <Button text="All Routes (DFS)" onAction="#onFindAllRoutes"/>
+            <Button text="Shortest (Dijkstra)" onAction="#onFindShortestRoute"/>
+            <Button text="Shortest + Penalty" onAction="#onFindRouteWithPenalty"/>
             <Button text="Clear" onAction="#onClear"/>
          </HBox>
       </VBox>
@@ -34,22 +39,31 @@
    <!-- Center area for map display -->
    <center>
       <AnchorPane>
-         <ImageView preserveRatio="true" 
-                   AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" 
-                   AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0">
+         <ImageView preserveRatio="true"
+                    AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0"
+                    AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0">
             <Image url="@names-removed-grey-ubahn-map.png"/>
          </ImageView>
-         <Label fx:id="routeLabel" text="Route will be displayed here" 
+         <Label fx:id="routeLabel" text="Route will be displayed here"
                 style="-fx-background-color: rgba(255, 255, 255, 0.8); 
                        -fx-padding: 10;"/>
       </AnchorPane>
    </center>
+
    <!-- Bottom area for additional information -->
    <bottom>
-      <Label text="Route Information" style="-fx-font-weight: bold;"/>
-      <Label fx:id="routeInfoLabel" text="Select a route to see details." 
-             style="-fx-background-color: rgba(255, 255, 255, 0.8); 
-                    -fx-padding: 10;"/>
-      <Label text="Note: Ensure to select both start and destination stations."/>
+      <VBox spacing="5" padding="10">
+         <Label text="Route Information" style="-fx-font-weight: bold;"/>
+
+         <!-- NEW: Route display area -->
+         <TextArea fx:id="routeOutput" prefRowCount="8" wrapText="true"
+                   editable="false"
+                   style="-fx-font-family: monospace; -fx-background-color: rgba(255, 255, 255, 0.9);"/>
+
+         <Label fx:id="routeInfoLabel" text="Select a route to see details."
+                style="-fx-background-color: rgba(255, 255, 255, 0.8);
+                       -fx-padding: 10;"/>
+         <Label text="Note: Ensure to select both start and destination stations."/>
+      </VBox>
    </bottom>
 </BorderPane>
