@@ -18,9 +18,7 @@ public class RouteController {
 
     private Graph graph;
 
-    public void setGraph(Graph graph) {
-        this.graph = graph;
-    }
+    
 
     @FXML
     private TextArea routeOutput;
@@ -41,10 +39,24 @@ public class RouteController {
         destinationStationComboBox.getItems().addAll(stations);
     }
 
+    
+
+    public void setGraph(Graph graph) {
+        this.graph = graph;
+    
+        // DEBUG: Print the graph structure to console
+        System.out.println("=== Loaded Graph ===");
+        for (GraphNodeAL<?> node : graph.getNodeList()) {
+            System.out.println("Station: " + node.getName());
+            for (var link : node.getAdjList()) {
+                System.out.println("  connects to → " + link.destNode.getName() + " (cost: " + link.cost + ")");
+            }
+        }
+    }
     @FXML
     public void onFindRoute() {
-        String start = startStationComboBox.getValue();
-        String end = destinationStationComboBox.getValue();
+        String start = startStationComboBox.getValue().trim();
+        String end = destinationStationComboBox.getValue().trim();
 
         if (start == null || end == null || graph == null){
             routeOutput.setText("Please select both start and destination stations");
@@ -80,8 +92,8 @@ public class RouteController {
 
     @FXML
     public void onFindAllRoutes(){
-        String start = startStationComboBox.getValue();
-        String end = destinationStationComboBox.getValue();
+        String start = startStationComboBox.getValue().trim();
+        String end = destinationStationComboBox.getValue().trim();
 
         if ( start == null || end == null ) {
             routeOutput.setText("Please select both stations.");
@@ -115,8 +127,8 @@ public class RouteController {
 
     @FXML
     public void onFindShortestRoute(){
-        String start = startStationComboBox.getValue();
-        String end = destinationStationComboBox.getValue();
+        String start = startStationComboBox.getValue().trim();
+        String end = destinationStationComboBox.getValue().trim();
 
         if ( start == null || end == null ) {
             routeOutput.setText("Please select both stations.");
@@ -145,8 +157,8 @@ public class RouteController {
 
     @FXML
     public void onFindRouteWithPenalty() {
-        String start = startStationComboBox.getValue();
-        String end = destinationStationComboBox.getValue();
+        String start = startStationComboBox.getValue().trim();
+        String end = destinationStationComboBox.getValue().trim();
         int penalty = 10;
 
         if ( start == null || end == null ) {

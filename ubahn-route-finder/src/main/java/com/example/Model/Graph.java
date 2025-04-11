@@ -8,6 +8,7 @@ import java.util.Map;
 
 
 public class Graph {
+    private List<GraphNodeAL<?>> nodeList = new ArrayList<>();
 
     private Map<GraphNodeAL, List<GraphLinkAL>> adjacencyList = new HashMap<>();
 
@@ -26,6 +27,14 @@ public class Graph {
 
     public Collection<GraphNodeAL> getStations(){
         return adjacencyList.keySet();
+    }
+
+    public List<GraphNodeAL<?>> getNodeList() {
+        return nodeList;
+    }
+
+    public void addNode(GraphNodeAL<?> node) {
+        nodeList.add(node);
     }
 
     //Method to find a station by name assuming unique station names

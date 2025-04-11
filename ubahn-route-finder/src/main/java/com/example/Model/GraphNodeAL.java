@@ -19,9 +19,9 @@ public class GraphNodeAL<T> {
                 this.adjList = new ArrayList<>();
         }
 
-        public void addLink(GraphNodeAL<T> destination, double cost, String lineName, String lineColor){
-                adjList.add(new GraphLinkAL(this, destination, cost, lineName, lineColor));
-                destination.adjList.add(new GraphLinkAL(destination, this, cost, lineName, lineColor)); // undirected graph
+        public void addLink(GraphNodeAL<?> connectedStation, double cost, String lineName, String lineColor){
+                adjList.add(new GraphLinkAL(this, connectedStation, cost, lineName, lineColor));
+                connectedStation.adjList.add(new GraphLinkAL(connectedStation, this, cost, lineName, lineColor)); // undirected graph
         }
 
         public double getLatitude() { 
@@ -56,4 +56,6 @@ public class GraphNodeAL<T> {
         public void setNodeValue(int nodeValue){
                 this.nodeValue = nodeValue;
         }
+
+        
 }

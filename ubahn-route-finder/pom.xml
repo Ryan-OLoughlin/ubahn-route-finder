@@ -22,6 +22,16 @@
         </dependency>
     </dependencies>
     <build>
+    <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**/*.png</include>
+                <include>**/*.fxml</include>
+                <include>**/*.csv</include>
+            </includes>
+        </resource>
+    </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -41,7 +51,7 @@
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.App</mainClass>
+                            <mainClass>com.example.UI.MainApp</mainClass>
                         </configuration>
                     </execution>
                 </executions>
