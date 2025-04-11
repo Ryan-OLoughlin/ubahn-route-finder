@@ -20,27 +20,34 @@ public class GraphAlgorithms {
         public List<GraphNodeAL<?>> pathList = new ArrayList<>();
     }
 
-    public static <T> CostedPath DFSCheapestPath(GraphNodeAL<?> from, List<GraphNodeAL<?>> encountered,
-    int totalCost, T lookingfor) {
+    public static <T> List<CostedPath> findAllDFSPaths(GraphNodeAL<?> from, List<GraphNodeAL<?>> encountered,
+            int totalCost, T lookingfor) {
+        List<CostedPath> result = new ArrayList<>();
+        
         if (from.data.equals(lookingfor)) {
             CostedPath cp = new CostedPath();
             cp.pathList.add(from);
             cp.pathCost = totalCost;
-            return cp;
+            result.add(cp);
+            return result;
         }
+        
         if (encountered == null) encountered = new ArrayList<>();
         encountered.add(from);
-        List<CostedPath> allPaths = new ArrayList<>();
+        
         for (GraphLinkAL adjLink : from.adjList) {
             if (!encountered.contains(adjLink.destNode)) {
-                CostedPath temp = DFSCheapestPath(adjLink.destNode, new ArrayList<>(encountered),
+                List<GraphNodeAL<?>> newEncountered = new ArrayList<>(encountered);
+                List<CostedPath> subPaths = findAllDFSPaths(adjLink.destNode, newEncountered,
                         totalCost + (int) adjLink.cost, lookingfor);
-                if (temp == null) continue;
-                temp.pathList.add(0, from);
-                allPaths.add(temp);
+                
+                for (CostedPath path : subPaths) {
+                    path.pathList.add(0, from);
+                    result.add(path);
+                }
             }
         }
-        return allPaths.isEmpty() ? null : Collections.min(allPaths, (p1, p2) -> p1.pathCost - p2.pathCost);
+        return result;
     }
 
     public static <T> CostedPath findCheapestPathDijkstra(GraphNodeAL<?> startNode, T lookingfor) {
@@ -161,14 +168,14 @@ public class GraphAlgorithms {
                 int newCost = current.nodeValue + (int)link.cost;
                 String currentLine = lastLines.get(current);
                 
-                if (currentLine != null && !currentLine.equals(link.line)) {
+                if (currentLine != null && !currentLine.equals(link.lineName)) {
                     newCost += penalty;
                 }
 
                 if (newCost < lineCosts.getOrDefault(link.destNode, Integer.MAX_VALUE)) {
                     link.destNode.nodeValue = newCost;
                     lineCosts.put(link.destNode, newCost);
-                    lastLines.put(link.destNode, link.line);
+                    lastLines.put(link.destNode, link.lineName);
                     parents.put(link.destNode, current);
                     
                     if (!queue.contains(link.destNode)) {

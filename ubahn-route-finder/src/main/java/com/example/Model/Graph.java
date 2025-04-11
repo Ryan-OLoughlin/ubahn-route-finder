@@ -1,10 +1,10 @@
 package com.example.Model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.*;
 
 
 public class Graph {
@@ -14,10 +14,10 @@ public class Graph {
     public void addStation(GraphNodeAL station) {
         adjacencyList.putIfAbsent(station, new ArrayList<>()); }
 
-    public void addLink(GraphNodeAL source, GraphNodeAL destination, double distance, String line) {
-        GraphLinkAL link = new GraphLinkAL(source, destination, distance, line);
+    public void addLink(GraphNodeAL source, GraphNodeAL destination, double distance, String lineName, String lineColor) {
+        GraphLinkAL link = new GraphLinkAL(source, destination, distance, lineName, lineColor);
         adjacencyList.get(source).add(link);
-        adjacencyList.get(destination).add(new GraphLinkAL(destination, source, distance, line)); // Undirected graph
+        adjacencyList.get(destination).add(new GraphLinkAL(destination, source, distance, lineName, lineColor)); // Undirected graph
     }
 
     public List<GraphLinkAL> getLinks(GraphNodeAL station){

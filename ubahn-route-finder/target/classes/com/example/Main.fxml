@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.RouteController">
+   <!-- Top area for route controls -->
+   <top>
+      <VBox spacing="5">
+         <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+         </padding>
+         <Label text="Select Your Route"/>
+
+         <HBox spacing="10">
+            <Label text="Start Station:"/>
+            <ComboBox fx:id="startStationComboBox" prefWidth="150"/>
+         </HBox>
+
+         <HBox spacing="10">
+            <Label text="Destination Station:"/>
+            <ComboBox fx:id="destinationStationComboBox" prefWidth="150"/>
+         </HBox>
+
+         <HBox spacing="10">
+            <Button text="Find Route" onAction="#onFindRoute"/>
+            <Button text="Clear" onAction="#onClear"/>
+         </HBox>
+      </VBox>
+   </top>
+
+   <!-- Center area for map display -->
+   <center>
+      <AnchorPane>
+         <ImageView preserveRatio="true" 
+                   AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" 
+                   AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0">
+            <Image url="@names-removed-grey-ubahn-map.png"/>
+         </ImageView>
+         <Label fx:id="routeLabel" text="Route will be displayed here" 
+                style="-fx-background-color: rgba(255, 255, 255, 0.8); 
+                       -fx-padding: 10;"/>
+      </AnchorPane>
+   </center>
+   <!-- Bottom area for additional information -->
+   <bottom>
+      <Label text="Route Information" style="-fx-font-weight: bold;"/>
+      <Label fx:id="routeInfoLabel" text="Select a route to see details." 
+             style="-fx-background-color: rgba(255, 255, 255, 0.8); 
+                    -fx-padding: 10;"/>
+      <Label text="Note: Ensure to select both start and destination stations."/>
+   </bottom>
+</BorderPane>

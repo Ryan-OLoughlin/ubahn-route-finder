@@ -2,11 +2,15 @@ package com.example.UI;
 
 import java.io.IOException;
 
+import com.example.Model.Graph;
+import com.example.Util.CSVLoader;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 
 /**
  * JavaFX App
@@ -18,13 +22,18 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            // Adjust the size as needed or use preferred dimensions and confirm the FXML file name
-            scene = new Scene(loadFXML("Main"), 640, 480);
+            // Initialize graph with data
+            Graph graph = CSVLoader.loadGraph(
+                "src/main/resources/com/example/station_locations.csv",
+                "src/main/resources/com/example/vienna_subway.csv"
+            );
+            
+            scene = new Scene(loadFXML("Main"), 2324, 1008);
             stage.setScene(scene);
             stage.setTitle("Vienna U-Bahn Route Finder");
             stage.show();
         } catch (Exception e) {
-            e.printStackTrace();  // Print the stack trace to diagnose initialization errors
+            e.printStackTrace();
         }
     }
 
