@@ -1,14 +1,16 @@
 package com.example.Controller;
+import java.util.List;
+
 import com.example.Model.Graph;
 import com.example.Model.GraphNodeAL;
+import com.example.Util.CSVLoader;
 import com.example.Util.GraphAlgorithms;
 import com.example.Util.GraphAlgorithms.CostedPath;
-import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import com.example.Util.CSVLoader;
-import javafx.scene.control.TextArea;
 
-import java.util.List;
+import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 
 public class RouteController {
 
@@ -18,7 +20,8 @@ public class RouteController {
 
     private Graph graph;
 
-    
+    @FXML
+    private Canvas mapCanvas;
 
     @FXML
     private TextArea routeOutput;
@@ -37,9 +40,16 @@ public class RouteController {
         List<String> stations = CSVLoader.loadStationNames();
         startStationComboBox.getItems().addAll(stations);
         destinationStationComboBox.getItems().addAll(stations);
+        startStationComboBox.setValue("Select Start Station");
+        destinationStationComboBox.setValue("Select Destination Station");
+        mapController = new MapController();
+        mapController.setCanvas(mapCanvas);
+
     }
 
-    
+    public MapController getMapController() {
+        return mapController;
+    }
 
     public void setGraph(Graph graph) {
         this.graph = graph;

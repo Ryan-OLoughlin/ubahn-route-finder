@@ -1,36 +1,63 @@
 package com.example.Controller;
 
+import java.util.List;
+
 import com.example.Model.Graph;
 import com.example.Model.GraphNodeAL;
-import javafx.fxml.FXML;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-import java.util.List;
-
 public class MapController {
 
-    @FXML
     private Canvas mapCanvas;
-
     private GraphicsContext gc;
     private Graph graph;
 
     private Image backgroundImage;
 
-    @FXML
-    public void initialize() {
+    
+    public void setCanvas(Canvas canvas) {
+        this.mapCanvas = canvas;
         gc = mapCanvas.getGraphicsContext2D();
 
         try {
-            backgroundImage = new Image(getClass().getResourceAsStream("/com/example/images/some-removed-grey-ubahn-map.png"));
-        } catch (Exception e) {
-            System.err.println("⚠️ Could not load background map image!");
-        }
+            // Verify image resource exists
+            String imagePath = "/com/example/images/ubahn-complete.jpg";
+            if (getClass().getResource(imagePath) == null) {
+                System.err.println("⛔ Image resource not found at: " + imagePath);
+            }
+            
+            backgroundImage = new Image(getClass().getResourceAsStream(imagePath));
+            
+            // Immediate check for already loaded image
+            if (backgroundImage.getProgress() == 1.0) {
+                System.out.println("Image already loaded");
+                gc.drawImage(backgroundImage, 0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
+            }
+            
+            // Add listener for async loading
+            backgroundImage.progressProperty().addListener((obs, oldVal, newVal) -> {
+                if (newVal.doubleValue() == 1.0) {
+                    System.out.println("Image loaded async - Canvas size: " 
+                        + mapCanvas.getWidth() + "x" + mapCanvas.getHeight());
+                    gc.drawImage(backgroundImage, 0, 0, 
+                        mapCanvas.getWidth() > 0 ? mapCanvas.getWidth() : 1280,
+                        mapCanvas.getHeight() > 0 ? mapCanvas.getHeight() : 720);
+                }
+            });
 
-        clearCanvas();
+            // Verify image status
+            System.out.println("Image error: " + backgroundImage.isError());
+            System.out.println("Image dimensions: " + backgroundImage.getWidth() + "x" + backgroundImage.getHeight());
+            System.out.println("Canvas dimensions: " + mapCanvas.getWidth() + "x" + mapCanvas.getHeight());
+        }
+        catch (Exception e) {
+            System.err.println("Error loading map image: " + e.getMessage());
+            System.err.println("⚠️ Could not load background map image.");
+        }
     }
 
     public void setGraph(Graph graph) {
@@ -38,9 +65,11 @@ public class MapController {
     }
 
     public void clearCanvas() {
-        gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
-        if (backgroundImage != null) {
-            gc.drawImage(backgroundImage, 0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
+        if (gc != null && mapCanvas != null) {
+            gc.clearRect(0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
+            if (backgroundImage != null) {
+                gc.drawImage(backgroundImage, 0, 0, mapCanvas.getWidth(), mapCanvas.getHeight());
+            }
         }
     }
 

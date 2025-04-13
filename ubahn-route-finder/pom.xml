@@ -27,6 +27,7 @@
             <directory>src/main/resources</directory>
             <includes>
                 <include>**/*.png</include>
+                <include>**/*.jpg</include>
                 <include>**/*.fxml</include>
                 <include>**/*.csv</include>
             </includes>
