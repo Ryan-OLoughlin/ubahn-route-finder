@@ -42,8 +42,7 @@ public class RouteController {
         destinationStationComboBox.getItems().addAll(stations);
         startStationComboBox.setValue("Select Start Station");
         destinationStationComboBox.setValue("Select Destination Station");
-        mapController = new MapController();
-        mapController.setCanvas(mapCanvas);
+        
 
     }
 

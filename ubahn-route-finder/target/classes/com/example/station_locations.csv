@@ -1,99 +1,99 @@
 Station,Longitude,Latitude
-Aderklaaer strasse  ,1103,63
-Alaudagasse  ,793,843
-Alser strasse  ,451,280
-Alte Donau  ,1003,163
-Alterlaa  ,451,743
-Altes Landgut  ,763,812
-Am Schoepfwerk  ,450,708
-Aspern Nord  ,1362,231
-Aspernstrasse  ,1285,273
-Bahnhof Meidling  ,451,633
-Braunschweiggasse  ,179,548
-Burggasse-Stadthalle  ,451,385
-Donauinsel  ,943,223
-Donaumarina  ,1097,375
-Donaustadtbruecke  ,1121,340
-Donauspital  ,1230,274
-Dresdner strasse  ,694,118
-Enkplatz  ,1163,637
-Erdberg  ,1034,547
-Erlaaer strasse  ,451,779
-Floridsdorf  ,855,15
-Friedensbruecke  ,677,202
-Gasometer  ,1076,576
-Grossfeldsiedlung  ,1127,39
-Gumpendorfer strasse  ,451,486
-Handelskai  ,754,118
-Hardeggasse  ,1165,274
-Hausfeldstrasse  ,1313,231
-Herrengasse  ,712,429
-Heiligenstradt  ,594,15
-Hietzing  ,241,548
-Huetteldorfer strasse  ,281,344
-Huetteldorf  ,12,548
-Jaegerstrasse  ,648,118
-Johnstrasse  ,322,363
-Josefstaedter strasse  ,451,317
-Kagran  ,1029,137
-Kagraner Platz  ,1056,110
-Kaisermuehlen/VIC  ,975,192
-Karlsplatz  ,736,539
-Kardinal-Nagl-Platz  ,951,489
-Keplerplatz  ,763,681
-Kettenbrueckengasse  ,666,548
-Kendlerstrasse  ,238,322
-Krieau  ,998,321
-Landstrasse  ,865,428
-Laengenfeldgasse  ,451,548
-Leopoldau  ,1155,11
-Margaretenguertel  ,526,548
-Meidling Haupstrasse  ,361,548
-Messe-Prater  ,955,282
-Michelbeuern - AKH  ,451,236
-Museumsquartier  ,667,488
-Neubaugasse  ,594,427
-Neue Donau  ,804,65
-Neulaa  ,823,874
-Nestroyplatz  ,848,317
-Niederhofstrasse  ,451,595
-Nussdorfer strasse  ,516,118
-Ober St. Veit  ,72,548
-Oberlaa  ,869,873
-Ottakring  ,192,300
-Perfektastrasse  ,451,816
-Pilgramgasse  ,591,548
-Praterstern  ,880,285
-Rathaus  ,669,376
-Rennbahnweg  ,1080,86
-Reumannplatz  ,762,726
-Rochusgasse  ,911,460
-Rossauer Laende  ,721,245
-Schlachthausgasse  ,989,515
-Schoenbrunn  ,302,547
-Schottentor  ,708,326
-Schottenring  ,762,286
-Schwedenplatz  ,821,345
-Schweglerstrasse  ,372,389
-Seestadt  ,1385,261
-Siebenhirten  ,451,855
-Simmering  ,1206,667
-Spittelau  ,594,118
-Stadion  ,1034,353
-Stadlau  ,1143,306
-Stadtpark,847,507
-Stephansplatz  ,763,428
-Stubentor  ,808,429
-Suedtiroler Platz - Hauptbahnhof  ,763,636
-Taborstrasse  ,821,283
-Taubstummengasse  ,763,593
-Thaliastrasse  ,451,351
-Troststrasse  ,763,768
-Tschwerttegasse  ,451,668
-Unter St. Veit  ,123,547
-Vorgartenstrasse  ,913,252
-Volkstheater  ,669,428
-Waehringer strasse - Volksoper  ,451,184
-Westbahnhof  ,451,428
-Zieglergasse  ,529,428
-Zippererstrasse  ,1121,608
+Aderklaaer strasse  ,63,1103
+Alaudagasse  ,843,793
+Alser strasse  ,280,451
+Alte Donau  ,163,1003
+Alterlaa  ,743,451
+Altes Landgut  ,812,763
+Am Schoepfwerk  ,708,450
+Aspern Nord  ,231,1362
+Aspernstrasse  ,273,1285
+Bahnhof Meidling  ,633,451
+Braunschweiggasse  ,548,179
+Burggasse-Stadthalle  ,385,451
+Donauinsel  ,223,943
+Donaumarina  ,375,1097
+Donaustadtbruecke  ,340,1121
+Donauspital  ,274,1230
+Dresdner strasse  ,118,694
+Enkplatz  ,637,1163
+Erdberg  ,547,1034
+Erlaaer strasse  ,779,451
+Floridsdorf  ,15,855
+Friedensbruecke  ,202,677
+Gasometer  ,576,1076
+Grossfeldsiedlung  ,39,1127
+Gumpendorfer strasse  ,486,451
+Handelskai  ,118,754
+Hardeggasse  ,274,1165
+Hausfeldstrasse  ,231,1313
+Herrengasse  ,429,712
+Heiligenstradt  ,15,594
+Hietzing  ,548,241
+Huetteldorfer strasse  ,344,281
+Huetteldorf  ,548,12
+Jaegerstrasse  ,118,648
+Johnstrasse  ,363,322
+Josefstaedter strasse  ,317,451
+Kagran  ,137,1029
+Kagraner Platz  ,110,1056
+Kaisermuehlen/VIC  ,192,975
+Karlsplatz  ,539,736
+Kardinal-Nagl-Platz  ,489,951
+Keplerplatz  ,681,763
+Kettenbrueckengasse  ,548,666
+Kendlerstrasse  ,322,238
+Krieau  ,321,998
+Landstrasse  ,428,865
+Laengenfeldgasse  ,548,451
+Leopoldau  ,11,1155
+Margaretenguertel  ,548,526
+Meidling Haupstrasse  ,548,361
+Messe-Prater  ,282,955
+Michelbeuern - AKH  ,236,451
+Museumsquartier  ,488,667
+Neubaugasse  ,427,594
+Neue Donau  ,65,804
+Neulaa  ,874,823
+Nestroyplatz  ,317,848
+Niederhofstrasse  ,595,451
+Nussdorfer strasse  ,118,516
+Ober St. Veit  ,548,72
+Oberlaa  ,873,869
+Ottakring  ,300,192
+Perfektastrasse  ,816,451
+Pilgramgasse  ,548,591
+Praterstern  ,285,880
+Rathaus  ,376,669
+Rennbahnweg  ,86,1080
+Reumannplatz  ,726,762
+Rochusgasse  ,460,911
+Rossauer Laende  ,245,721
+Schlachthausgasse  ,515,989
+Schoenbrunn  ,547,302
+Schottentor  ,326,708
+Schottenring  ,286,762
+Schwedenplatz  ,345,821
+Schweglerstrasse  ,389,372
+Seestadt  ,261,1385
+Siebenhirten  ,855,451
+Simmering  ,667,1206
+Spittelau  ,118,594
+Stadion  ,353,1034
+Stadlau  ,306,1143
+Stadtpark,507,847
+Stephansplatz  ,428,763
+Stubentor  ,429,808
+Suedtiroler Platz - Hauptbahnhof  ,636,763
+Taborstrasse  ,283,821
+Taubstummengasse  ,593,763
+Thaliastrasse  ,351,451
+Troststrasse  ,768,763
+Tschwerttegasse  ,668,451
+Unter St. Veit  ,547,123
+Vorgartenstrasse  ,252,913
+Volkstheater  ,428,669
+Waehringer strasse - Volksoper  ,184,451
+Westbahnhof  ,428,451
+Zieglergasse  ,428,529
+Zippererstrasse  ,608,1121

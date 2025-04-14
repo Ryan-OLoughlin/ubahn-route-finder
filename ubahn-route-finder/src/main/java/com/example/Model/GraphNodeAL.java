@@ -33,9 +33,25 @@ public class GraphNodeAL<T> {
         }
         
         public void setCoordinates(double lat, double lon) {
-            latitude = lat;
-            longitude = lon;
-        }
+                this.latitude = lat;
+                this.longitude = lon;
+            
+                // These are raw image-space coordinates
+                this.x = lon;
+                this.y = lat;
+            
+                // Scale to canvas size
+                double imageWidth = 1416.0;
+                double imageHeight = 889.0;
+            
+                double canvasWidth = 1280.0;
+                double canvasHeight = 720.0;
+            
+                this.x = (lon / imageWidth) * canvasWidth;
+                this.y = (lat / imageHeight) * canvasHeight;
+            }
+            
+            
 
         public T getData(){
                 return data;
