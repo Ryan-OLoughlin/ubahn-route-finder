@@ -12,9 +12,9 @@ import com.example.Model.GraphNodeAL;
 public class CSVLoader {
 
     public static Graph loadGraph(String stationsPath, String linksPath) {
-        System.out.println("🔄 Loading graph...");
+        System.out.println(" Loading graph...");
         Graph graph = loadStations(stationsPath);
-        System.out.println("✅ Loaded " + graph.getNodeList().size() + " stations.");
+        System.out.println(" Loaded " + graph.getNodeList().size() + " stations.");
         loadLinks(graph, linksPath);
         return graph;
     }
@@ -27,7 +27,7 @@ public class CSVLoader {
             if (parts.length >= 1) {
                 String name = parts[0].trim();
                 names.add(name);
-                System.out.println("📌 Station (comboBox): " + name);
+                System.out.println(" Station (comboBox): " + name);
             }
         }
         return names;
@@ -40,7 +40,7 @@ public class CSVLoader {
         for (String line : lines) {
             String[] parts = line.split(",");
             if (parts.length < 3) {
-                System.out.println("⚠️ Invalid station line (ignored): " + line);
+                System.out.println(" Invalid station line (ignored): " + line);
                 continue;
             }
 
@@ -48,7 +48,7 @@ public class CSVLoader {
             double lat = Double.parseDouble(parts[1].trim());
             double lon = Double.parseDouble(parts[2].trim());
 
-            System.out.println("📍 Adding station: " + name + " (" + lat + ", " + lon + ")");
+            System.out.println(" Adding station: " + name + " (" + lat + ", " + lon + ")");
             GraphNodeAL<String> station = new GraphNodeAL<>(name, name);
             station.setCoordinates(lat, lon);
             graph.addStation(station);
@@ -74,21 +74,21 @@ public class CSVLoader {
                 try {
                     distance = Double.parseDouble(parts[4].trim());
                 } catch (NumberFormatException e) {
-                    System.out.println("⚠️ Invalid distance, using default 1.0 → " + line);
+                    System.out.println(" Invalid distance, using default 1.0 → " + line);
                 }
             } else {
-                System.out.println("ℹ️ No distance provided, using default 1.0 → " + line);
+                System.out.println(" No distance provided, using default 1.0 → " + line);
             }
     
             GraphNodeAL<?> station = graph.findStation(stationName);
             GraphNodeAL<?> connectedStation = graph.findStation(connectedStationName);
     
             if (station != null && connectedStation != null) {
-                System.out.println("🔗 Linking: " + stationName + " ↔ " + connectedStationName +
+                System.out.println(" Linking: " + stationName + " ↔ " + connectedStationName +
                                    " [" + distance + " km, Line: " + lineName + "]");
                 station.addLink(connectedStation, distance, lineName, lineColor);
             } else {
-                System.out.println("❌ Link failed: Cannot find → " + stationName + " or " + connectedStationName);
+                System.out.println(" Link failed: Cannot find → " + stationName + " or " + connectedStationName);
             }
         }
     }
@@ -106,7 +106,7 @@ public class CSVLoader {
                 lines.add(line);
             }
         } catch (IOException e) {
-            System.out.println("❌ Failed to read CSV file: " + csvPath);
+            System.out.println(" Failed to read CSV file: " + csvPath);
             e.printStackTrace();
         }
         return lines;

@@ -50,18 +50,27 @@ public class GraphAlgorithms {
         return result;
     }
 
-    public static <T> CostedPath findCheapestPathDijkstra(GraphNodeAL<?> startNode, T lookingfor) {
+    public static <T> CostedPath findCheapestPathDijkstra(GraphNodeAL<?> startNode, T lookingfor, List<String> avoidStations) {
         CostedPath cp = new CostedPath();
         List<GraphNodeAL<?>> encountered = new ArrayList<>(), unencountered = new ArrayList<>();
         startNode.nodeValue = 0;
         unencountered.add(startNode);
         GraphNodeAL<?> currentNode;
+    
         do {
             currentNode = unencountered.remove(0);
+    
+            //  Skip if this is an avoided station (but not the target!)
+            if (avoidStations.contains(currentNode.getName()) && !currentNode.data.equals(lookingfor)) {
+                continue;
+            }
+    
             encountered.add(currentNode);
+    
             if (currentNode.data.equals(lookingfor)) {
                 cp.pathList.add(currentNode);
                 cp.pathCost = currentNode.nodeValue;
+    
                 while (currentNode != startNode) {
                     boolean foundPrevPathNode = false;
                     for (GraphNodeAL<?> n : encountered) {
@@ -76,59 +85,81 @@ public class GraphAlgorithms {
                         if (foundPrevPathNode) break;
                     }
                 }
+    
+                // Reset node values
                 for (GraphNodeAL<?> n : encountered) n.nodeValue = Integer.MAX_VALUE;
                 for (GraphNodeAL<?> n : unencountered) n.nodeValue = Integer.MAX_VALUE;
+    
                 return cp;
             }
+    
             for (GraphLinkAL e : currentNode.adjList) {
-                if (!encountered.contains(e.destNode)) {
-                    int newCost = (int) (currentNode.nodeValue + e.cost);
-                    if (newCost < e.destNode.nodeValue) {
-                        e.destNode.nodeValue = newCost;
-                        if (!unencountered.contains(e.destNode)) unencountered.add(e.destNode);
+                GraphNodeAL<?> neighbor = e.destNode;
+    
+                //  Skip avoided neighbors
+                if (avoidStations.contains(neighbor.getName()) && !neighbor.data.equals(lookingfor)) continue;
+    
+                int newCost = (int) (currentNode.nodeValue + e.cost);
+                if (!encountered.contains(neighbor)) {
+                    if (newCost < neighbor.nodeValue) {
+                        neighbor.nodeValue = newCost;
+                        if (!unencountered.contains(neighbor)) unencountered.add(neighbor);
                     }
                 }
             }
-            Collections.sort(unencountered, (n1, n2) -> n1.nodeValue - n2.nodeValue);
+    
+            unencountered.sort(Comparator.comparingInt(n -> n.nodeValue));
+    
         } while (!unencountered.isEmpty());
+    
+        // Reset in case of failure
+        for (GraphNodeAL<?> n : encountered) n.nodeValue = Integer.MAX_VALUE;
+        for (GraphNodeAL<?> n : unencountered) n.nodeValue = Integer.MAX_VALUE;
+    
         return null;
     }
+    
 
-    public static <T> CostedPath findAnyRouteBFS(GraphNodeAL<?> start, T lookingfor) {
+    public static <T> CostedPath findAnyRouteBFS(GraphNodeAL<?> start, T lookingfor, List<String> avoidStations) {
         Queue<GraphNodeAL<?>> queue = new LinkedList<>();
         Map<GraphNodeAL<?>, GraphNodeAL<?>> parentMap = new HashMap<>();
         queue.add(start);
         parentMap.put(start, null);
         GraphNodeAL<?> target = null;
-
+    
         while (!queue.isEmpty()) {
             GraphNodeAL<?> current = queue.poll();
+    
+            //  Skip avoided stations
+            if (avoidStations.contains(current.getName())) continue;
+    
             if (current.data.equals(lookingfor)) {
                 target = current;
                 break;
             }
+    
             for (GraphLinkAL link : current.adjList) {
                 GraphNodeAL<?> neighbor = link.destNode;
-                if (!parentMap.containsKey(neighbor)) {
+                if (!parentMap.containsKey(neighbor) && !avoidStations.contains(neighbor.getName())) {
                     parentMap.put(neighbor, current);
                     queue.add(neighbor);
                 }
             }
         }
-
+    
         if (target == null) return null;
-
+    
         CostedPath cp = new CostedPath();
         GraphNodeAL<?> node = target;
         while (node != null) {
             cp.pathList.add(0, node);
             node = parentMap.get(node);
         }
-
+    
         // Calculate total cost
-        for (int i = 0; i < cp.pathList.size()-1; i++) {
+        for (int i = 0; i < cp.pathList.size() - 1; i++) {
             GraphNodeAL<?> a = cp.pathList.get(i);
-            GraphNodeAL<?> b = cp.pathList.get(i+1);
+            GraphNodeAL<?> b = cp.pathList.get(i + 1);
             for (GraphLinkAL link : a.adjList) {
                 if (link.destNode == b) {
                     cp.pathCost += link.cost;
@@ -136,23 +167,30 @@ public class GraphAlgorithms {
                 }
             }
         }
+    
         return cp;
     }
+    
 
-    public static <T> CostedPath findCheapestPathWithPenalty(GraphNodeAL<?> startNode, T lookingfor, int penalty) {
+    public static <T> CostedPath findCheapestPathWithPenalty(GraphNodeAL<?> startNode, T lookingfor, int penalty, List<String> avoidStations) {
         Queue<GraphNodeAL<?>> queue = new PriorityQueue<>(Comparator.comparingInt(n -> n.nodeValue));
         Map<GraphNodeAL<?>, Integer> lineCosts = new HashMap<>();
         Map<GraphNodeAL<?>, String> lastLines = new HashMap<>();
         Map<GraphNodeAL<?>, GraphNodeAL<?>> parents = new HashMap<>();
-
+    
         startNode.nodeValue = 0;
         queue.add(startNode);
         lastLines.put(startNode, null);
         lineCosts.put(startNode, 0);
-
+    
         while (!queue.isEmpty()) {
             GraphNodeAL<?> current = queue.poll();
-            
+    
+            //  Skip avoided station (except if it's the destination)
+            if (avoidStations.contains(current.getName()) && !current.data.equals(lookingfor)) {
+                continue;
+            }
+    
             if (current.data.equals(lookingfor)) {
                 CostedPath cp = new CostedPath();
                 cp.pathCost = current.nodeValue;
@@ -163,27 +201,35 @@ public class GraphAlgorithms {
                 }
                 return cp;
             }
-
+    
             for (GraphLinkAL link : current.adjList) {
-                int newCost = current.nodeValue + (int)link.cost;
+                GraphNodeAL<?> neighbor = link.destNode;
+    
+                //  Skip avoided neighbor (unless it's the destination)
+                if (avoidStations.contains(neighbor.getName()) && !neighbor.data.equals(lookingfor)) {
+                    continue;
+                }
+    
+                int newCost = current.nodeValue + (int) link.cost;
                 String currentLine = lastLines.get(current);
-                
+    
                 if (currentLine != null && !currentLine.equals(link.lineName)) {
                     newCost += penalty;
                 }
-
-                if (newCost < lineCosts.getOrDefault(link.destNode, Integer.MAX_VALUE)) {
-                    link.destNode.nodeValue = newCost;
-                    lineCosts.put(link.destNode, newCost);
-                    lastLines.put(link.destNode, link.lineName);
-                    parents.put(link.destNode, current);
-                    
-                    if (!queue.contains(link.destNode)) {
-                        queue.add(link.destNode);
+    
+                if (newCost < lineCosts.getOrDefault(neighbor, Integer.MAX_VALUE)) {
+                    neighbor.nodeValue = newCost;
+                    lineCosts.put(neighbor, newCost);
+                    lastLines.put(neighbor, link.lineName);
+                    parents.put(neighbor, current);
+    
+                    if (!queue.contains(neighbor)) {
+                        queue.add(neighbor);
                     }
                 }
             }
         }
+    
         return null;
     }
-}
+}    
