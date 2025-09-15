@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.canvas.Canvas?>
+
+<HBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.Controller.RouteController"
+      spacing="20"
+      alignment="TOP_LEFT"
+      fillHeight="true"
+      minHeight="500"
+      maxWidth="Infinity"
+      HBox.hgrow="ALWAYS">
+
+    <!-- Left controls panel -->
+    <VBox spacing="10" prefWidth="300" maxWidth="300" HBox.hgrow="NEVER">
+        <padding>
+            <Insets top="15" right="15" bottom="15" left="15"/>
+        </padding>
+
+        <Label text="Route Controls" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+
+        <ScrollPane fitToWidth="true" prefHeight="500">
+            <VBox spacing="8">
+                <Label text="Start Station:"/>
+                <ComboBox fx:id="startStationComboBox" prefWidth="250"/>
+
+                <Label text="Destination Station:"/>
+                <ComboBox fx:id="destinationStationComboBox" prefWidth="250"/>
+
+                <!-- 🔽 Add this for Waypoints -->
+                <Label text="Waypoints (must-visit stations):" />
+                <ListView fx:id="waypointsListView" prefHeight="150" />
+
+                <Label text="Stations to Avoid (optional)" />
+                <ListView fx:id="avoidStationsListView" prefHeight="150" />
+
+                <Label fx:id="penaltyLabel" text="Penalty for line changes:"/>
+                <Slider fx:id="penaltySlider" min="0" max="100"/>
+
+                <VBox spacing="8" style="-fx-padding: 10 0 0 0;">
+                    <Button text="Find Route (BFS)" onAction="#onFindRoute" maxWidth="Infinity"/>
+                    <Button text="All Routes (DFS)" onAction="#onFindAllRoutes" maxWidth="Infinity"/>
+                    <Button text="Shortest (Dijkstra)" onAction="#onFindShortestRoute" maxWidth="Infinity"/>
+                    <Button text="Shortest + Penalty" onAction="#onFindRouteWithPenalty" maxWidth="Infinity"/>
+                    <Button text="Clear Selections" onAction="#onClear" maxWidth="Infinity"/>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </VBox>
+
+    <!-- Centered map canvas -->
+    <AnchorPane HBox.hgrow="ALWAYS" maxWidth="Infinity" minWidth="600">
+        <Canvas fx:id="mapCanvas"
+                AnchorPane.topAnchor="0"
+                AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0"/>
+        <Label fx:id="routeLabel" text="Route will be displayed here"
+               style="-fx-background-color: rgba(255, 255, 255, 0.8); -fx-padding: 10;"
+               AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10"/>
+    </AnchorPane>
+
+    <!-- Right route details panel -->
+    <VBox spacing="10" prefWidth="350" maxWidth="350" HBox.hgrow="NEVER">
+        <padding>
+            <Insets top="15" right="15" bottom="15" left="15"/>
+        </padding>
+
+        <Label text="Route Details" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+
+        <TextArea fx:id="routeOutput" prefRowCount="15" wrapText="true"
+                  editable="false" style="-fx-font-family: monospace;"/>
+
+        <Label fx:id="routeInfoLabel" text="No route selected"
+               style="-fx-background-color: rgba(255,255,255,0.9); -fx-padding: 8;"/>
+    </VBox>
+</HBox>

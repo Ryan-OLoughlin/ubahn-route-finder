@@ -1,0 +1,11 @@
+dontinline,*.*_all_jmhStub
+dontinline,*.*_avgt_jmhStub
+dontinline,*.*_sample_jmhStub
+dontinline,*.*_ss_jmhStub
+dontinline,*.*_thrpt_jmhStub
+inline,com/example/Benchmark/GraphBenchmark.benchmarkAllRoutesDFS
+inline,com/example/Benchmark/GraphBenchmark.benchmarkBFS
+inline,com/example/Benchmark/GraphBenchmark.benchmarkBFSWithAvoid
+inline,com/example/Benchmark/GraphBenchmark.benchmarkDijkstra
+inline,com/example/Benchmark/GraphBenchmark.benchmarkWithPenalty
+inline,com/example/Benchmark/GraphBenchmark.setup
